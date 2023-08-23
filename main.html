@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <div class="card">
+        <div class="left">
+            <input type="text" inputmode="numeric" id="input-num" placeholder="Number">
+            <select name="metrics" id="metrics-in">
+                <option value="INCHES">INCHES</option>
+                <option value="FEET">FEET</option>
+                <option value="CENTIMETER">CENTIMETER</option>
+                <option value="MILLIMETER">MILLIMETER</option>
+            </select>
+            <input type="button" value="Convert" onclick="Convert()">
+        </div>
+        <img src="images.png" alt="convert" onclick="swap()">
+        <div class="right">
+            <input type="text" inputmode="numeric" id="output-num" placeholder="Converted Value">
+            <select name="metrics" id="metrics-out">
+                <option value="INCHES">INCHES</option>
+                <option value="FEET">FEET</option>
+                <option value="CENTIMETER">CENTIMETER</option>
+                <option value="MILLIMETER">MILLIMETER</option>
+            </select>
+        </div>
+        <br>
+    </div>
+</body>
+<script>
+    const a = document.getElementById('input-num');
+    const p = document.getElementById('output-num');
+    const inp = document.getElementById('metrics-in');
+    const out = document.getElementById('metrics-out');
+    function swap() {
+        let temp = a.value;
+        a.value = p.value;
+        p.value = temp;
+        temp = inp.value;
+        inp.value = out.value;
+        out.value = temp;
+    }
+    function Convert() {
+        if(isNaN(a.value)){
+            a.value='';
+            alert('ENTER NUMERIC ONLY');
+        }else{
+            let val = convertMeasurement(a.value,inp.value,out.value);
+            p.value=val;
+        }
+    };
+    function convertMeasurement(value, fromUnit, toUnit) {
+    let result;
+
+    switch (fromUnit) {
+    case 'INCHES':
+        switch (toUnit) {
+        case 'CENTIMETER':
+          result = inchesToCentimeters(value);
+          break;
+        case 'MILLIMETER':
+          result = inchesToMillimeters(value);
+          break;
+        case 'FEET':
+          result = inchesToFeet(value);
+          break;
+        default:
+          result = value;
+      }
+      break;
+
+    case 'CENTIMETER':
+      switch (toUnit) {
+        case 'INCHES':
+          result = centimetersToInches(value);
+          break;
+        case 'MILLIMETER':
+          result = centimetersToMillimeters(value);
+          break;
+        case 'FEET':
+          result = centimetersToFeet(value);
+          break;
+        default:
+          result = value;
+      }
+      break;
+
+    case 'MILLIMETER':
+      switch (toUnit) {
+        case 'INCHES':
+          result = millimetersToInches(value);
+          break;
+        case 'CENTIMETER':
+          result = millimetersToCentimeters(value);
+          break;
+        case 'FEET':
+          result = millimetersToFeet(value);
+          break;
+        default:
+          result = value;
+      }
+      break;
+
+    case 'FEET':
+      switch (toUnit) {
+        case 'INCHES':
+          result = feetToInches(value);
+          break;
+        case 'CENTIMETER':
+          result = feetToCentimeters(value);
+          break;
+        case 'MILLIMETER':
+          result = feetToMillimeters(value);
+          break;
+        default:
+          result = value;
+      }
+      break;
+
+    default:
+      result = value;
+  }
+
+  return result;
+}
+// Function to convert inches to centimeters
+function inchesToCentimeters(inches) {
+  return inches * 2.54;
+}
+
+// Function to convert inches to millimeters
+function inchesToMillimeters(inches) {
+  return inches * 25.4;
+}
+
+// Function to convert inches to feet
+function inchesToFeet(inches) {
+  return inches / 12;
+}
+
+// Function to convert centimeters to inches
+function centimetersToInches(centimeters) {
+  return centimeters / 2.54;
+}
+
+// Function to convert centimeters to millimeters
+function centimetersToMillimeters(centimeters) {
+  return centimeters * 10;
+}
+
+// Function to convert centimeters to feet
+function centimetersToFeet(centimeters) {
+  return centimeters / 30.48;
+}
+
+// Function to convert millimeters to inches
+function millimetersToInches(millimeters) {
+  return millimeters / 25.4;
+}
+
+// Function to convert millimeters to centimeters
+function millimetersToCentimeters(millimeters) {
+  return millimeters / 10;
+}
+
+// Function to convert millimeters to feet
+function millimetersToFeet(millimeters) {
+  return millimeters / 304.8;
+}
+
+// Function to convert feet to inches
+function feetToInches(feet) {
+  return feet * 12;
+}
+
+// Function to convert feet to centimeters
+function feetToCentimeters(feet) {
+  return feet * 30.48;
+}
+
+// Function to convert feet to millimeters
+function feetToMillimeters(feet) {
+  return feet * 304.8;
+}
+</script>
+</html>
